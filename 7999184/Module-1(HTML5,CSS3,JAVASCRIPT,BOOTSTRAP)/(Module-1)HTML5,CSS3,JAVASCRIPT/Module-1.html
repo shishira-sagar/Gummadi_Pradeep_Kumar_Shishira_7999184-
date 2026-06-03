@@ -1,0 +1,528 @@
+<!-- Task 1: HTML5 Base Template -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8"> <!--Setting the character encoding to UTF-8--> 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="Module-1.css">
+
+    <title>Community Event Portal!</title>
+
+    <style>
+        html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h2 {
+    color: darkblue;
+}
+    
+/* Task 2: Navigation and Linking */ 
+
+        nav {
+            background-color: #000;
+            padding: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            color: yellow;
+        }
+
+/* Task 3: Welcome Message with Styling and ID/Class */
+
+        #welcomeBanner {
+            background-color: rgb(178, 179, 236);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .highlight {
+            background-color: rgb(249, 194, 226);
+            font-weight: bold;
+            padding: 5px;
+        }
+
+        /* Main Section */
+
+        main {
+            padding: 20px;
+        }
+
+        /* Gallery */
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        td {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .event-img {
+            width: 220px;
+            height: 140px;
+            border: 4px solid black;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .event-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Form */
+
+        form {
+            background-color: rgb(178, 179, 236);
+            padding: 20px;
+            width: 50%;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        input,
+        select,
+        textarea,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid gray;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: green;
+        }
+
+        output {
+            color: green;
+            font-weight: bold;
+        }
+
+        /* Video */
+
+        video {
+            margin-top: 20px;
+            border: 3px solid black;
+            border-radius: 10px;
+        }
+
+        /* Footer */
+
+        footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+    </style>
+
+    <script>
+
+/* Task 6: Event Feedback with Event Handling */
+
+        function validatePhone() {
+
+            let phone =
+                document.getElementById("phone").value;
+
+/* Task 10: Debugging with Chrome DevTools */
+
+            console.log("Phone Entered:", phone); 
+            if (!/^[0-9]{10}$/.test(phone)) {
+                 alert("Invalid Phone Number");
+            }
+        }
+
+        /* For Display Event Fee */
+
+       function showFee() {
+    let event = document.getElementById("eventType").value;
+
+    const fees = {
+        "Music": "₹100",
+        "Workshop": "₹200",
+        "Sports": "₹150",
+        "Food Carnival": "₹120",
+        "Art Exhibition": "₹180",
+        "Community Meetup": "₹80"
+    };
+
+    let fee = fees[event] || "Please select an event";
+
+    document.getElementById("fee").innerHTML =
+        "Event Fee: " + fee;
+
+    console.log("Selected Event:", event);
+}
+
+        /* For Submit Form */
+
+        function submitForm() {
+            document.getElementById("result").innerHTML =
+                "Registration Submitted Successfully";
+                console.log("Form Submitted");
+                document.querySelector("form").reset();
+        }
+
+        /* For Enlarge Image */
+
+        function enlarge(img) {
+            img.style.width = "350px";
+            img.style.height = "220px";
+        }
+
+        /* For Count Characters */
+
+        function countChars() {
+            let text =
+                document.getElementById("feedback").value;
+                document.getElementById("count").innerHTML =
+                "Characters: " + text.length;
+        }
+
+        /* For Video Ready */
+
+        function videoReady() {
+            document.getElementById("videoMsg").innerHTML =
+                "Video Ready To Play";
+        }
+/* Task 8: Saving User Preferences */
+
+        /* For Save Preference */
+
+        function savePreference() {
+            let value =
+                document.getElementById("eventType").value;
+                localStorage.setItem("eventType", value);
+        }
+
+        /* For Load Preference */
+
+        function loadPreference() {
+            let saved =
+                localStorage.getItem("eventType");
+                if (saved) {
+                document.getElementById("eventType").value = saved;
+                showFee();
+            }
+        }
+
+        /* For Clearing Storage */
+
+        function clearStorage() {
+            localStorage.clear();
+            sessionStorage.clear();
+            alert("Preferences Cleared");
+        }
+/* Task 9: Geolocation for Event Mapping */
+
+        /* For Geolocation */
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        document.getElementById("location")
+                            .innerHTML ="Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+                    },
+
+                    function(error) {
+                        if (error.code == 1) {
+                            alert("Permission Denied");
+                        }
+                        else if (error.code == error.TIMEOUT) {
+                                alert("Location Request Timed Out");
+                        } 
+                        else {
+                            alert("Unable To Fetch Location");
+                        }
+                    },
+
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 5000,
+                        maximumAge: 0
+                    }
+                );
+            }
+            else {
+                alert("Geolocation Not Supported");
+            }
+        }
+
+        /*  To Warn Before Leaving */
+
+        window.onbeforeunload = function() {
+            return "Your form is not submitted. Are you sure you want to leave?";
+        }
+
+        /* To Load Saved Data */
+
+        window.onload = loadPreference;
+    
+    </script>
+</head>
+<body>
+
+    <!-- Navigation -->
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+        <a href="help.html" target="_blank">
+            Help
+        </a>
+    </nav>
+
+    <!-- Welcome Banner -->
+
+    <div id="welcomeBanner">
+        <h1 style="color:red;">
+            Welcome to Community Event Portal!
+        </h1>
+        <p class="highlight">
+            Community Event Registrations are Open Now
+        </p>
+
+        <p>
+            Special Offer:
+            <span style="color:rgb(252, 255, 178);
+                         font-weight:bold;">
+                         Free Registration For First 100 Users
+            </span>
+        </p>
+    </div>
+
+    <!-- Main -->
+
+    <main>
+
+        <!-- Home Section -->
+
+        <section id="home">
+            <h2>Home</h2>
+            <p>
+                Welcome to the local community event portal.
+                Residents can register for events,
+                watch event videos,
+                and locate nearby programs.
+            </p>
+        </section>
+
+<!-- Task 4: Image Gallery for Community Events -->
+
+<section id="events">
+    <h2>Community Event Gallery</h2>
+    <table border="1">
+        
+        <tr>
+            <td>
+                <div class="eventCard">
+                    <img src="Music-Festival.jpeg"
+                         alt="Music Festival"
+                         title="Music Festival"
+                         class="event-img">
+                    <p>Music Festival</p>
+                </div>
+            </td>
+
+            <td>
+                <img src="Workshop.jpeg"
+                     alt="Workshop"
+                     title="Workshop"
+                     class="event-img"
+                     ondblclick="enlarge(this)">
+                <p>Workshop</p>
+            </td>
+
+            <td>
+                <img src="Sports-Event.jpeg"
+                     alt="Sports Event"
+                     title="Sports Event"
+                     class="event-img"
+                     ondblclick="enlarge(this)">
+               <p>Sports Event</p>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <img src="Food-Carnival.jpeg"
+                     alt="Food Carnival"
+                     title="Food Carnival"
+                     class="event-img"
+                     ondblclick="enlarge(this)">
+                <p>Food Carnival</p>
+            </td>
+
+            <td>
+                 <img src="Art-Exhibition.jpeg"
+                     alt="Art Exhibition"
+                     title="Art Exhibition"
+                     class="event-img"
+                     ondblclick="enlarge(this)">
+                <p>Art Exhibition</p>
+            </td>
+            <td>
+                <img src="Community-Meetup.jpeg"
+                     alt="Community Meetup"
+                     title="Community Meetup"
+                     class="event-img"
+                     ondblclick="enlarge(this)">
+                <p>Community Meetup</p>
+            </td>
+        </tr>
+    </table>
+</section>
+
+<!-- Task 5: Event Registration Form -->
+<section>
+        <form>
+            <input type="text"
+                   name="name"
+                   placeholder="Enter Your Name"
+                   required
+                   autofocus>
+
+            <input type="email"
+                   name="email"
+                   placeholder="Enter Email"
+                   required>
+
+            <input type="text"
+                   name="phone"
+                   id="phone"
+                   placeholder="Enter Phone Number"
+                   onblur="validatePhone()"
+                   required>
+
+            <input type="date"
+                   name="date"
+                   required>
+
+                <select id="eventType"
+                        onchange="showFee(); savePreference();">
+
+                    <option value="">Select Event</option>
+                    <option>Music</option>
+                    <option>Workshop</option>
+                    <option>Sports</option>
+                    <option>Food Carnival</option>
+                    <option>Art Exhibition</option>
+                    <option>Community Meetup</option>
+
+                </select>
+
+                <p id="fee"></p>
+                <textarea rows="5"
+                          id="feedback"
+                          placeholder="Enter Feedback"
+                          onkeyup="countChars()"></textarea>
+                <p id="count"></p>
+                <button type="button"
+                        onclick="submitForm()">
+                    Submit Registration
+                </button>
+                <output id="result"></output>
+            </form>
+
+        </section>
+        
+<!-- Task 7: Video Invite with Media Events -->
+
+<section>
+    <h2>Community Event Promo Video</h2>
+    <video width="600" controls oncanplay="videoReady()">
+        <source src="Community_event.mp4" type="video/mp4">
+    </video>
+    <p id="videoMsg"></p>
+</section>
+
+        <!-- Geolocation -->
+
+        <section>
+
+            <h2>Find Nearby Events</h2>
+            <button onclick="getLocation()">
+                Find Nearby Events
+            </button>
+
+            <p id="location"></p>
+
+        </section>
+
+        <!-- Storage -->
+
+        <section>
+
+            <button onclick="clearStorage()">
+                Clear Preferences
+            </button>
+
+        </section>
+
+        <!-- Contact -->
+
+        <section id="contact">
+
+            <h2>Contact Us</h2>
+            <p>Email: support@gmail.com</p>
+            <p>Phone: +91 9876543210</p>
+
+        </section>
+
+        <section class="news">
+    <p>
+        Community announcements and updates displayed in a newspaper.
+    </p>
+</section>
+
+    </main>
+
+    <!-- Footer -->
+
+    <footer>
+
+        © 2026 Community Event Portal
+
+    </footer>
+    <script src="Module-1.js"></script>
+</body>
+</html>
+
+<!--For task 10(Debugging): Use Chrome DevTools → Console tab to inspect logs
+ Use Sources tab → set breakpoints for debugging functions -->

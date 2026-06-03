@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Music Festival",
+    "category": "Music",
+    "location": "City Ground",
+    "date": "2026-12-01",
+    "seats": 20
+  },
+  {
+    "id": 2,
+    "name": "Workshop",
+    "category": "Workshop",
+    "location": "Tech Center",
+    "date": "2026-12-05",
+    "seats": 15
+  },
+  {
+    "id": 3,
+    "name": "Sports Event",
+    "category": "Sports",
+    "location": "Stadium",
+    "date": "2026-12-10",
+    "seats": 25
+  },
+  {
+    "id": 4,
+    "name": "Food Carnival",
+    "category": "Food Carnival",
+    "location": "Town Square",
+    "date": "2026-12-15",
+    "seats": 30
+  },
+  {
+    "id": 5,
+    "name": "Art Exhibition",
+    "category": "Art Exhibition",
+    "location": "Art Gallery",
+    "date": "2026-12-20",
+    "seats": 18
+  },
+  {
+    "id": 6,
+    "name": "Community Meetup",
+    "category": "Community Meetup",
+    "location": "Community Hall",
+    "date": "2026-12-25",
+    "seats": 40
+  }
+]
